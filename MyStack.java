@@ -41,6 +41,7 @@ an element can be accessed only by traversing the list from the front
 
 public class MyStack
 {
+ 
    private ListNode headNode;
 
    /* Do you need to initialize anything in the constructor? */
@@ -60,14 +61,11 @@ public class MyStack
          headNode = new ListNode(n);
       } else
       {
-         ListNode currentNode = headNode;
-
-         while (currentNode.nextNode != null)
-         {
-            currentNode = currentNode.nextNode;
-         }
-         currentNode.nextNode = new ListNode(n);
-         currentNode = currentNode.nextNode;
+         ListNode temp = headNode;        
+         
+         headNode.nextNode = new ListNode(n);
+         headNode = headNode.nextNode;
+         headNode.prevNode = temp;
       }
    }
 
@@ -81,21 +79,16 @@ public class MyStack
       {
          return 0;
       }
+      ListNode temp = headNode;
 
-      ListNode temp = null;
-
-      ListNode CurrentNode = headNode;
-      while (CurrentNode.nextNode != null)
+      if (headNode.prevNode != null)
       {
-         temp = CurrentNode;
-         CurrentNode = CurrentNode.nextNode;
+         headNode = headNode.prevNode;
+         headNode.nextNode = null;
       }
-      // LastNode = CurrentNode;
-      int pop_data = CurrentNode.data;
-      temp.nextNode = null;
 
+      int pop_data = temp.data;
       return pop_data;
-
    }
 
    /*
@@ -105,22 +98,13 @@ public class MyStack
    public int peek()
 
    {
-      int peekdata;
       if (headNode == null)
       {
-         peekdata = 0;
-      }
-
-      else
+         return 0;
+      } else
       {
-         ListNode currentNode = headNode;
-         while (currentNode.nextNode != null)
-         {
-            currentNode = currentNode.nextNode;
-         }
-         peekdata = currentNode.data;
+         return headNode.data;
       }
-      return peekdata;
    }
 
    public static void main(String[] args)
