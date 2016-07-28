@@ -1,4 +1,3 @@
-
 /* Assignment #2 7/11/16
  * In MyStack, you will write your own stack. 
  * It will have its own push, pop, and peek methods just like a real stack. 
@@ -20,60 +19,111 @@
  * 
  * For simplicity, your stack will hold ints.
  */
-public class MyStack {
 
-	/* Add any instance variables you need here. Make sure they are PRIVATE */
-	
-	
-	/* Do you need to initialize anything in the constructor? */
-	public MyStack() {
-		/* fill this out if necessary */
-	}
-	
-	/* PUSH
-	 * Pushes int n to the top of the stack. 
-	 */
-	public void push(int n) {
-		
-		/* erase this exception and write your code here*/
-		throw new UnsupportedOperationException();
-	}
-	
-	/* POP
-	 * Removes the int at the top of the stack and returns it. 
-	 */
-	public int pop() {
-		
-		/* erase this exception and write your code here*/
-		throw new UnsupportedOperationException();
-	}
-	
-	/* PEEK
-	 * Returns the int at the top of the stack but does not remove it.
-	 */
-	public int peek() {
-		
-		/* erase this exception and write your code here*/
-		throw new UnsupportedOperationException();
-	}
-	
-	public static void main(String[] args) {
-		
-		// Add anything to the main method, but you can only use
-		// the constructor, push, pop, and peek methods from 
-		// the MyStack class here. 
-		
-		// Create a new stack
-		MyStack s = new MyStack();
-		s.push(1);
-		s.push(2);
-		s.push(3);
-		
-		// pop 
-		
-		
-		// peek
+/* 
+ * Anshuman 07/27/16
+ * 
 
-	}
+Insertion/ Removal into a Linked List is fast - only two references have to be modified 
+after locating the insertion/ removal  point, rest all existing node objects remain in 
+their current location.
 
+For sorted array, insertion & deletion in a sorted array can be time consuming - all
+ the elements following the inserted or deleted element must be shifted appropriately.
+
+
+Cons of LinkedList over Arrays: The elements of an array are contiguous in memory. This 
+allows immediate access to any array element, because it's address can be calculated directly 
+as its offset from the beginning of the array. Linked List do not afford such immediate access- 
+an element can be accessed only by traversing the list from the front
+ * 
+ * */
+
+public class MyStack
+{
+ 
+   private ListNode headNode;
+
+   /* Do you need to initialize anything in the constructor? */
+   public MyStack()
+   {
+      // ListNode HeadNode;
+   }
+
+   /*
+    * PUSH Pushes int n to the top of the stack.
+    */
+
+   public void push(int n)
+   {
+      if (headNode == null)
+      {
+         headNode = new ListNode(n);
+      } else
+      {
+         ListNode temp = headNode;        
+         
+         headNode.nextNode = new ListNode(n);
+         headNode = headNode.nextNode;
+         headNode.prevNode = temp;
+      }
+   }
+
+   /*
+    * POP Removes the int at the top of the stack and returns it.
+    */
+
+   public int pop()
+   {
+      if (headNode == null)
+      {
+         return 0;
+      }
+      ListNode temp = headNode;
+
+      if (headNode.prevNode != null)
+      {
+         headNode = headNode.prevNode;
+         headNode.nextNode = null;
+      }
+
+      int pop_data = temp.data;
+      return pop_data;
+   }
+
+   /*
+    * PEEK Returns the int at the top of the stack but does not remove it.
+    */
+
+   public int peek()
+
+   {
+      if (headNode == null)
+      {
+         return 0;
+      } else
+      {
+         return headNode.data;
+      }
+   }
+
+   public static void main(String[] args)
+   {
+      // Add anything to the main method, but you can only use
+      // the constructor, push, pop, and peek methods from
+      // the MyStack class here.
+
+      // Create a new stack
+      MyStack s = new MyStack();
+
+      s.push(1);
+      s.push(2);
+      s.push(3);
+      System.out.println("Peek top of stack:" + s.peek());
+      System.out.println("Popped this from stack:" + s.pop());
+      System.out.println("Popped this from stack:" + s.pop());
+
+      System.out.println("Peek top of stack:" + s.peek());
+
+   }
 }
