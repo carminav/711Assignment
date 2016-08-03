@@ -41,7 +41,7 @@ an element can be accessed only by traversing the list from the front
 
 public class MyStack
 {
- 
+
    private ListNode headNode;
 
    /* Do you need to initialize anything in the constructor? */
@@ -61,11 +61,9 @@ public class MyStack
          headNode = new ListNode(n);
       } else
       {
-         ListNode temp = headNode;        
-         
-         headNode.nextNode = new ListNode(n);
-         headNode = headNode.nextNode;
-         headNode.prevNode = temp;
+         ListNode temp = new ListNode(n);
+         temp.prevNode = headNode;
+         headNode = temp;
       }
    }
 
@@ -79,15 +77,8 @@ public class MyStack
       {
          return 0;
       }
-      ListNode temp = headNode;
-
-      if (headNode.prevNode != null)
-      {
-         headNode = headNode.prevNode;
-         headNode.nextNode = null;
-      }
-
-      int pop_data = temp.data;
+      int pop_data = headNode.data;
+      headNode = headNode.prevNode;
       return pop_data;
    }
 
